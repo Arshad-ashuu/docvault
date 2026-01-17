@@ -1,6 +1,7 @@
 import { Tabs } from 'expo-router'
 import { Ionicons } from '@expo/vector-icons'
 import { Platform } from 'react-native'
+import { LinearGradient } from 'expo-linear-gradient'
 
 export default function TabLayout() {
   return (
@@ -8,21 +9,33 @@ export default function TabLayout() {
       screenOptions={{
         headerShown: false,
 
-        contentStyle: { backgroundColor: '#0F172A' },
-        sceneStyle: { backgroundColor: '#0F172A' },
+        // Gradient background for scenes
+        contentStyle: { backgroundColor: 'transparent' },
+        sceneStyle: { backgroundColor: 'transparent' },
 
         animation: Platform.OS === 'android' ? 'none' : 'default',
 
-        tabBarActiveTintColor: '#3B82F6',
-        tabBarInactiveTintColor: '#64748B',
+        tabBarActiveTintColor: '#a78bfa', // violet accent
+        tabBarInactiveTintColor: '#c4c5c7',
+
         tabBarStyle: {
-          backgroundColor: '#1E293B',
-          borderTopColor: '#334155',
-          borderTopWidth: 1,
-          height: 60,
+          backgroundColor: 'transparent',
+          borderTopWidth: 0,
+          height: 70,
           paddingBottom: 8,
           paddingTop: 8,
+          position: 'absolute',
         },
+
+        tabBarBackground: () => (
+          <LinearGradient
+            colors={['#2f2978', '#0c0c21', '#2f2978']}
+            style={{ flex: 1 }}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 1, y: 1 }}
+          />
+        ),
+
         tabBarLabelStyle: {
           fontSize: 12,
           fontWeight: '600',
@@ -35,7 +48,7 @@ export default function TabLayout() {
           title: 'Home',
           unmountOnBlur: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
+            <Ionicons name="home-outline" size={size} color={color} />
           ),
         }}
       />
@@ -46,7 +59,7 @@ export default function TabLayout() {
           title: 'Family',
           unmountOnBlur: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="people" size={size} color={color} />
+            <Ionicons name="people-outline" size={size} color={color} />
           ),
         }}
       />
@@ -57,7 +70,7 @@ export default function TabLayout() {
           title: 'Settings',
           unmountOnBlur: false,
           tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
+            <Ionicons name="settings-outline" size={size} color={color} />
           ),
         }}
       />

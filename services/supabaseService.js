@@ -32,37 +32,54 @@ export const getCurrentUser = async () => {
 
 // ========== SECTIONS ==========
 
-export const addSection = async (sectionData) => {
-  const { data: { user } } = await supabase.auth.getUser()
+// export const addSection = async (sectionData) => {
+//   const { data: { user } } = await supabase.auth.getUser()
   
-  const { data, error } = await supabase
-    .from('sections')
-    .insert({
-      ...sectionData,
-      user_id: user.id,
-    })
-    .select()
-    .single()
+//   const { data, error } = await supabase
+//     .from('sections')
+//     .insert({
+//       ...sectionData,
+//       user_id: user.id,
+//     })
+//     .select()
+//     .single()
   
-  if (error) throw error
-  return data
-}
+//   if (error) throw error
+//   return data
+// }
+
+// export const getSections = async () => {
+//   const { data, error } = await supabase
+//     .from('sections')
+//     .select('*')
+//     .order('order_index', { ascending: true })
+  
+//   if (error) throw error
+//   return data
+// }
+
+// Add these if not already present:
 
 export const getSections = async () => {
   const { data, error } = await supabase
     .from('sections')
     .select('*')
-    .order('order_index', { ascending: true })
+    .order('created_at', { ascending: true })
   
   if (error) throw error
   return data
 }
 
-export const updateSection = async (sectionId, updates) => {
+export const addSection = async (title, icon = '📁') => {
+  const { data: { user } } = await supabase.auth.getUser()
+  
   const { data, error } = await supabase
     .from('sections')
-    .update(updates)
-    .eq('id', sectionId)
+    .insert({
+      title,
+      icon,
+      user_id: user.id,
+    })
     .select()
     .single()
   
@@ -78,6 +95,27 @@ export const deleteSection = async (sectionId) => {
   
   if (error) throw error
 }
+
+export const updateSection = async (sectionId, updates) => {
+  const { data, error } = await supabase
+    .from('sections')
+    .update(updates)
+    .eq('id', sectionId)
+    .select()
+    .single()
+  
+  if (error) throw error
+  return data
+}
+
+// export const deleteSection = async (sectionId) => {
+//   const { error } = await supabase
+//     .from('sections')
+//     .delete()
+//     .eq('id', sectionId)
+  
+//   if (error) throw error
+// }
 
 // ========== CARDS ==========
 

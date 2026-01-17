@@ -2,6 +2,8 @@ import { View, Text, TextInput, TouchableOpacity, StyleSheet, KeyboardAvoidingVi
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { router } from 'expo-router'
+import { LinearGradient } from 'expo-linear-gradient'
+import { Ionicons } from '@expo/vector-icons'
 import { supabase } from '../../config/supabase'
 
 export default function ForgotPassword() {
@@ -18,7 +20,7 @@ export default function ForgotPassword() {
     
     try {
       const { error } = await supabase.auth.resetPasswordForEmail(email.trim(), {
-        redirectTo: 'myapp://reset-password', // You can customize this
+        redirectTo: 'myapp://reset-password',
       })
 
       if (error) {
@@ -38,69 +40,92 @@ export default function ForgotPassword() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
-      <KeyboardAvoidingView 
-        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
-        style={styles.keyboardView}
-      >
-        <View style={styles.content}>
-          {/* Back Button */}
-          <TouchableOpacity 
-            style={styles.backButton}
-            onPress={() => router.back()}
-          >
-            <Text style={styles.backText}>← Back</Text>
-          </TouchableOpacity>
+    <LinearGradient
+      colors={['#1e1b4b', '#0c0c21', '#4c1d95']}
+      style={styles.gradient}
+    >
+      <SafeAreaView style={styles.container}>
+        <KeyboardAvoidingView 
+          behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          style={styles.keyboardView}
+        >
+          <View style={styles.content}>
+            {/* Back Button */}
+            <TouchableOpacity 
+              style={styles.backButton}
+              onPress={() => router.back()}
+            >
+              <Text style={styles.backText}>← Back</Text>
+            </TouchableOpacity>
 
-          <View style={styles.header}>
-            <Text style={styles.logo}>🔑</Text>
-            <Text style={styles.title}>Forgot Password?</Text>
-            <Text style={styles.subtitle}>
-              Enter your email and we'll send you a link to reset your password
-            </Text>
-          </View>
-
-          <View style={styles.form}>
-            <View style={styles.inputContainer}>
-              <Text style={styles.label}>Email</Text>
-              <TextInput
-                style={styles.input}
-                placeholder="Enter your email"
-                placeholderTextColor="#64748B"
-                value={email}
-                onChangeText={setEmail}
-                keyboardType="email-address"
-                autoCapitalize="none"
-              />
+            <View style={styles.header}>
+              <LinearGradient
+                colors={['#4c1d95', '#0c0c21', '#281bd3']}
+                style={styles.logoGradient}
+              >
+                <Ionicons name="key-outline" size={32} color="#fff" />
+              </LinearGradient>
+              <Text style={styles.title}>Forgot Password?</Text>
+              <Text style={styles.subtitle}>
+                Enter your email and we'll send you a link to reset your password
+              </Text>
             </View>
 
-            <TouchableOpacity 
-              style={[styles.button, loading && styles.buttonDisabled]}
-              onPress={handleResetPassword}
-              disabled={loading}
-            >
-              <Text style={styles.buttonText}>
-                {loading ? 'Sending...' : 'Send Reset Link'}
-              </Text>
-            </TouchableOpacity>
-          </View>
+            <View style={styles.form}>
+              <View style={styles.inputContainer}>
+                <Text style={styles.label}>Email</Text>
+                <View style={styles.inputWrapper}>
+                  <Ionicons name="mail-outline" size={20} color="#8b5cf6" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter your email"
+                    placeholderTextColor="#64748B"
+                    value={email}
+                    onChangeText={setEmail}
+                    keyboardType="email-address"
+                    autoCapitalize="none"
+                  />
+                </View>
+              </View>
 
-          <View style={styles.footer}>
-            <Text style={styles.footerText}>Remember your password?</Text>
-            <TouchableOpacity onPress={() => router.back()}>
-              <Text style={styles.link}>Sign In</Text>
-            </TouchableOpacity>
+              <TouchableOpacity 
+                style={[styles.button, loading && styles.buttonDisabled]}
+                onPress={handleResetPassword}
+                disabled={loading}
+              >
+                <LinearGradient
+                  colors={['#6447aa', '#5657ba']}
+                  start={{ x:0, y: 5 }}
+                  end={{ x: 1, y: 0 }}
+                  style={styles.buttonGradient}
+                >
+                  <Text style={styles.buttonText}>
+                    {loading ? 'Sending...' : 'Send Reset Link'}
+                  </Text>
+                  {!loading && <Ionicons name="arrow-forward" size={20} color="#fff" />}
+                </LinearGradient>
+              </TouchableOpacity>
+            </View>
+
+            <View style={styles.footer}>
+              <Text style={styles.footerText}>Remember your password?</Text>
+              <TouchableOpacity onPress={() => router.back()}>
+                <Text style={styles.link}>Sign In</Text>
+              </TouchableOpacity>
+            </View>
           </View>
-        </View>
-      </KeyboardAvoidingView>
-    </SafeAreaView>
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+    </LinearGradient>
   )
 }
 
 const styles = StyleSheet.create({
+  gradient: {
+    flex: 1,
+  },
   container: {
     flex: 1,
-    backgroundColor: '#0F172A',
   },
   keyboardView: {
     flex: 1,
@@ -117,7 +142,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   backText: {
-    color: '#3B82F6',
+    color: '#a78bfa',
     fontSize: 16,
     fontWeight: '600',
   },
@@ -125,19 +150,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     marginBottom: 48,
   },
-  logo: {
-    fontSize: 64,
+  logoGradient: {
+    width: 80,
+    height: 80,
+    borderRadius: 24,
+    justifyContent: 'center',
+    alignItems: 'center',
     marginBottom: 16,
+    shadowColor: '#1e1b4b',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.4,
+    shadowRadius: 16,
+    elevation: 10,
   },
   title: {
     fontSize: 32,
-    fontWeight: 'bold',
-    color: '#F1F5F9',
+    fontWeight: '800',
+    color: '#fff',
     marginBottom: 8,
   },
   subtitle: {
     fontSize: 16,
-    color: '#94A3B8',
+    color: 'rgba(255, 255, 255, 0.7)',
     textAlign: 'center',
     paddingHorizontal: 20,
   },
@@ -150,32 +184,50 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 14,
     fontWeight: '600',
-    color: '#94A3B8',
+    color: 'rgba(255, 255, 255, 0.8)',
     marginBottom: 8,
   },
-  input: {
-    backgroundColor: '#1E293B',
+  inputWrapper: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.08)',
     borderWidth: 1,
-    borderColor: '#334155',
-    borderRadius: 12,
+    borderColor: 'rgba(245, 243, 251, 0.3)',
+    borderRadius: 14,
+    paddingHorizontal: 16,
+  },
+  inputIcon: {
+    marginRight: 12,
+  },
+  input: {
+    flex: 1,
     padding: 16,
-    color: '#F1F5F9',
+    color: '#fff',
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#3B82F6',
-    borderRadius: 12,
-    padding: 16,
-    alignItems: 'center',
-    marginTop: 8,
+    borderRadius: 14,
+    overflow: 'hidden',
+    shadowColor: '#1e1b4b',
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.3,
+    shadowRadius: 12,
+    elevation: 8,
   },
   buttonDisabled: {
     opacity: 0.6,
   },
+  buttonGradient: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 16,
+    gap: 8,
+  },
   buttonText: {
-    color: '#FFFFFF',
+    color: '#fff',
     fontSize: 16,
-    fontWeight: '600',
+    fontWeight: '700',
   },
   footer: {
     flexDirection: 'row',
@@ -184,12 +236,12 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   footerText: {
-    color: '#94A3B8',
+    color: 'rgba(255, 255, 255, 0.6)',
     fontSize: 14,
   },
   link: {
-    color: '#3B82F6',
+    color: '#a78bfa',
     fontSize: 14,
-    fontWeight: '600',
+    fontWeight: '700',
   },
 })

@@ -4,6 +4,7 @@
 Secure document and card storage application with family sharing capabilities.
 
 #Download 📥
+https://github.com/Arshad-ashuu/docvault/releases/download/v1.0.0/docvault.apk
 
 ## Table of Contents
 

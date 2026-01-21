@@ -33,12 +33,15 @@ DocVault is a React Native mobile application designed for secure storage and ma
 - 🔑 Authentication system with password recovery
 
 ---
-![IMG_20260121_203700](https://github.com/user-attachments/assets/aeb24a04-fdce-40c1-a34e-177f377b6eee)
-![IMG_20260121_203721](https://github.com/user-attachments/assets/36591fc1-330b-4041-bb18-bbf343f38ab5)
-![IMG_20260121_203648](https://github.com/user-attachments/assets/643c799e-f62c-4c7a-90fc-c54e52eff31a)
-![IMG_20260121_203712](https://github.com/user-attachments/assets/7e52d49a-e907-46df-a94c-454731976397)
+<!-- App Screenshots -->
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/7e52d49a-e907-46df-a94c-454731976397" width="200" />
+  <img src="https://github.com/user-attachments/assets/36591fc1-330b-4041-bb18-bbf343f38ab5" width="200" />
+  <img src="https://github.com/user-attachments/assets/aeb24a04-fdce-40c1-a34e-177f377b6eee" width="200" />
+  <img src="https://github.com/user-attachments/assets/643c799e-f62c-4c7a-90fc-c54e52eff31a" width="200" />
+</div>
 
-
+---
 ## Tech Stack
 
 ### Frontend

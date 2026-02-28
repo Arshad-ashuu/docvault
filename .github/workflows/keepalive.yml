@@ -1,0 +1,21 @@
+name: Supabase Keep Alive
+
+on:
+  schedule:
+    - cron: '0 0 */6 * *'  # every 6 days
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run keepalive
+        run: node keepalive.js
+        env:
+          SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhjYm55YW5ibGtmY2hjcGdlZXRlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Njg2NDg2NjAsImV4cCI6MjA4NDIyNDY2MH0.-V65cwCs8yfpJVffQ0CXGXKhUdtAOe7yJ4h3mfBsKfw'
